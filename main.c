@@ -126,11 +126,8 @@ void hapusData() {
         salah=false;
     }
     urutanIndex = urutan-1;
-
-    Mahasiswa newList[max];
-    for (int i = 0;i < curSize; i++) {
-        if (i == urutanIndex) continue;
-        newList[i] = listMhs[i];
+    for (int i = urutanIndex; i < curSize-1;i++) {
+        listMhs[i] = listMhs[i+1];
     }
     curSize--;
     printf("\n\nData berhasil dihapus! \n\n");
