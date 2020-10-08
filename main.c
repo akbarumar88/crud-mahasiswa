@@ -83,6 +83,10 @@ void tambahData() {
 }
 
 void ubahData() {
+    if (curSize == 0) {
+        printf("Tidak ada data yg bisa diubah\n\n");
+        return;
+    }
     int urutan, urutanIndex;
     bool salah=true;
     while (salah) {
