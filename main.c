@@ -70,11 +70,11 @@ int main()
 }
 
 void tambahData() {
-    Mahasiswa m;
-    printf("Nama        : "); scanf("%s", m.nama);
+   Mahasiswa m;
+    printf("Nama        : "); fflush(stdin); gets(m.nama);
     printf("NPM         : "); scanf("%s", m.npm);
-    printf("Fakultas    : "); scanf("%s", m.fakultas);
-    printf("Jurusan     : "); scanf("%s", m.jurusan);
+    printf("Fakultas    : "); fflush(stdin); gets(m.fakultas);
+    printf("Jurusan     : "); fflush(stdin); gets(m.jurusan);
     printf("Semester    : "); scanf("%i", &m.semester);
     printf("Kota 	    : "); scanf("%s", m.alamat.kota);
     printf("Kecamatan   : "); scanf("%s", m.alamat.kecamatan);
@@ -100,10 +100,10 @@ void ubahData() {
     urutanIndex = urutan-1;
 
     Mahasiswa m;
-    printf("Nama        : "); scanf("%s", m.nama);
+    printf("Nama        : "); fflush(stdin); gets(m.nama);
     printf("NPM         : "); scanf("%s", m.npm);
-    printf("Fakultas    : "); scanf("%s", m.fakultas);
-    printf("Jurusan     : "); scanf("%s", m.jurusan);
+    printf("Fakultas    : "); fflush(stdin); gets(m.fakultas);
+    printf("Jurusan     : "); fflush(stdin); gets(m.jurusan);
     printf("Semester    : "); scanf("%i", &m.semester);
     printf("Kota 	    : "); scanf("%s", m.alamat.kota);
     printf("Kecamatan   : "); scanf("%s", m.alamat.kecamatan);
@@ -112,6 +112,10 @@ void ubahData() {
 }
 
 void hapusData() {
+    if (curSize == 0) {
+        printf("Tidak ada data yg bisa dihapus\n\n");
+        return;
+    }
     int urutan, urutanIndex;
     bool salah=true;
     while (salah) {
