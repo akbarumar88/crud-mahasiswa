@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 typedef struct
 {
@@ -20,12 +21,11 @@ typedef struct
 
 #define max 100
 // Taruh variable size dan array global, biar bisa diakses dimana saja
-int curSize = 1;
+int curSize = 2;
 // Array kasih maxLength, kalau tidak maka terjadi eror ketika tambah/ubah data
 Mahasiswa listMhs[max] = {
-    {
-        "Akbar", "19081010043", "Ilmu Komputer", "Teknik Informatika", 3, {"Suko", "Sidoarjo"}
-    }
+    { "Akbar", "19081010043", "Ilmu Komputer", "Teknik Informatika", 3, {"Suko", "Sidoarjo"} },
+    { "Hamdan", "19081010045", "Ilmu Komputer", "Teknik Informatika", 3, {"Suko", "Sidoarjo"} }
 };
 
 int main()
@@ -38,6 +38,7 @@ int main()
         printf("2. Ubah Data \n");
         printf("3. Hapus Data \n");
         printf("4. Keluar \n");
+        printf("5. Urut berdasarkan nama \n");
         printf("Pilihan Anda: "); scanf("%i", &choice);
         printf("\n");
 
@@ -59,6 +60,10 @@ int main()
 
             case 4:
                 exit = true;
+                break;
+
+            case 5:
+                urutByNama();
                 break;
 
             default:
@@ -150,4 +155,22 @@ void displayMahasiswa() {
         printf("Semester    : %i \n", listMhs[i].semester);
         printf("Alamat      : %s, %s \n\n", listMhs[i].alamat.kecamatan, listMhs[i].alamat.kota);
     }
+}
+
+void urutByNama() {
+    int i,j;
+    for (i=0; i<curSize; i++) {
+        for (j = 0; j < curSize-i-1; j++) {
+            if (strcmp(listMhs[j].nama, listMhs[j+1].nama) > 0) {
+                tukar(&listMhs[j].nama, &listMhs[j+1].nama);
+            }
+        }
+    }
+}
+
+void tukar(char *str1[32], char *str2[32]) {
+    char temp[32];
+    strcpy(temp, *str1);
+    strcpy(*str1, *str2);
+    strcpy(*str2, temp);
 }
