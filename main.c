@@ -40,7 +40,8 @@ int main()
         printf("2. Ubah Data \n");
         printf("3. Hapus Data \n");
         printf("4. Keluar \n");
-        printf("5. Urut berdasarkan nama \n");
+        printf("5. Urut berdasarkan nama Ascending \n");
+        printf("6. Urut berdasarkan nama Descending \n");
         printf("Pilihan Anda: "); scanf("%i", &choice);
         printf("\n");
 
@@ -65,7 +66,12 @@ int main()
                 break;
 
             case 5:
-                urutByNama();
+                urutByNama(1);
+                displayMahasiswa();
+                break;
+
+            case 6:
+                urutByNama(2);
                 displayMahasiswa();
                 break;
 
@@ -160,12 +166,19 @@ void displayMahasiswa() {
     }
 }
 
-void urutByNama() {
+void urutByNama(int order) {
+    /**
+    * 1 = Ascending
+    * 2 = Descending
+    */
+
     int i,j;
     for (i=0; i<curSize; i++) {
         for (j = 0; j < curSize-i-1; j++) {
-
-            if (strcmp(listMhs[j].nama, listMhs[j+1].nama) < 0) {
+            bool kondisi = order == 1
+                            ? strcmp(listMhs[j].nama, listMhs[j+1].nama) > 0
+                            : strcmp(listMhs[j].nama, listMhs[j+1].nama) < 0;
+            if (kondisi) {
                 // Tukar nilai
                 char temp[32];
                 strcpy(temp, listMhs[j].nama);
