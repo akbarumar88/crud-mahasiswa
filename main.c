@@ -21,11 +21,13 @@ typedef struct
 
 #define max 100
 // Taruh variable size dan array global, biar bisa diakses dimana saja
-int curSize = 2;
+int curSize = 4;
 // Array kasih maxLength, kalau tidak maka terjadi eror ketika tambah/ubah data
 Mahasiswa listMhs[max] = {
     { "Akbar", "19081010043", "Ilmu Komputer", "Teknik Informatika", 3, {"Suko", "Sidoarjo"} },
-    { "Hamdan", "19081010045", "Ilmu Komputer", "Teknik Informatika", 3, {"Suko", "Sidoarjo"} }
+    { "Hamdan", "19081010045", "Ilmu Komputer", "Teknik Informatika", 3, {"Suko", "Sidoarjo"} },
+    { "Bayu", "19081010046", "Ilmu Komputer", "Teknik Informatika", 3, {"Suko", "Sidoarjo"} },
+    { "Caca", "19081010047", "Ilmu Komputer", "Teknik Informatika", 3, {"Suko", "Sidoarjo"} },
 };
 
 int main()
@@ -64,6 +66,7 @@ int main()
 
             case 5:
                 urutByNama();
+                displayMahasiswa();
                 break;
 
             default:
@@ -161,8 +164,13 @@ void urutByNama() {
     int i,j;
     for (i=0; i<curSize; i++) {
         for (j = 0; j < curSize-i-1; j++) {
-            if (strcmp(listMhs[j].nama, listMhs[j+1].nama) > 0) {
-                tukar(&listMhs[j].nama, &listMhs[j+1].nama);
+
+            if (strcmp(listMhs[j].nama, listMhs[j+1].nama) < 0) {
+                // Tukar nilai
+                char temp[32];
+                strcpy(temp, listMhs[j].nama);
+                strcpy(listMhs[j].nama, listMhs[j+1].nama);
+                strcpy(listMhs[j+1].nama, temp);
             }
         }
     }
