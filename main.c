@@ -188,10 +188,3 @@ void urutByNama(int order) {
         }
     }
 }
-
-void tukar(char *str1[32], char *str2[32]) {
-    char temp[32];
-    strcpy(temp, *str1);
-    strcpy(*str1, *str2);
-    strcpy(*str2, temp);
-}
