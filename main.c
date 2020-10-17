@@ -148,7 +148,8 @@ void hapusData() {
         salah=false;
     }
     urutanIndex = urutan-1;
-    for (int i = urutanIndex; i < curSize-1;i++) {
+    int i;
+    for (i = urutanIndex; i < curSize-1;i++) {
         listMhs[i] = listMhs[i+1];
     }
     curSize--;
@@ -156,7 +157,8 @@ void hapusData() {
 }
 
 void displayMahasiswa() {
-    for (int i = 0; i < curSize; i++) {
+    int i;
+    for (i = 0; i < curSize; i++) {
         printf("Nama        : %s \n", listMhs[i].nama);
         printf("NPM         : %s \n", listMhs[i].npm);
         printf("Fakultas    : %s \n", listMhs[i].fakultas);
