@@ -84,7 +84,7 @@ int main()
 }
 
 void tambahData() {
-   Mahasiswa m;
+    Mahasiswa m;
     printf("Nama        : "); fflush(stdin); gets(m.nama);
     printf("NPM         : "); scanf("%s", m.npm);
     printf("Fakultas    : "); fflush(stdin); gets(m.fakultas);
@@ -102,18 +102,18 @@ void ubahData() {
         return;
     }
     int urutan, urutanIndex;
-    bool salahInput=true;
-    while (salahInput) {
+    bool salahInput=false;
+    do
+    {
         printf("Urutan yang akan diubah : "); scanf("%i", &urutan);
-        if (urutan < 1) {
-            printf("Urutan tidak boleh lebih kecil dari 1\n");
-            continue;
-        } else if (urutan > curSize) {
-            printf("Urutan tidak boleh lebih besar dari %i\n", curSize);
+        if (urutan < 1 || urutan > curSize) {
+            printf("Urutan harus antara 1 dan %i\n", curSize);
+            salahInput=true;
             continue;
         }
         salahInput=false;
     }
+    while (salahInput);
 
     urutanIndex = urutan-1;
 
@@ -135,18 +135,19 @@ void hapusData() {
         return;
     }
     int urutan, urutanIndex;
-    bool salahInput=true;
-    while (salahInput) {
+    bool salahInput=false;
+    do
+    {
         printf("Urutan yang akan dihapus : "); scanf("%i", &urutan);
-        if (urutan < 1) {
-            printf("Urutan tidak boleh lebih kecil dari 1\n");
-            continue;
-        } else if (urutan > curSize) {
-            printf("Urutan tidak boleh lebih besar dari %i\n", curSize);
+        if (urutan < 1 || urutan > curSize) {
+            printf("Urutan harus antara 1 dan %i\n", curSize);
+            salahInput=true;
             continue;
         }
         salahInput=false;
     }
+    while (salahInput);
+
     urutanIndex = urutan-1;
     int i;
     for (i = urutanIndex; i < curSize-1;i++) {
@@ -170,7 +171,7 @@ void displayMahasiswa() {
 
 void urutBy(char atribut[]) {
     int order;
-    bool salahInput;
+    bool salahInput=false;
     do
     {
         printf("1. Ascending\n");
@@ -179,7 +180,24 @@ void urutBy(char atribut[]) {
         printf("\n");
         // Jika salah inputan, maka continue
         if (order < 1 || order > 2) {
-            printf("Pilih antara 1 atau 2 \n\n");
+            printf("Pilih antara 1 atau 2! \n\n");
+            salahInput=true;
+            continue;
+        }
+        salahInput = false;
+    } while (salahInput);
+
+    int sortingType;
+    do
+    {
+        printf("1. Bubble Sort\n");
+        printf("2. Selection Sort\n");
+        printf("Pilih metode pengurutan : "); scanf("%i", &sortingType);
+        printf("\n");
+        // Jika salah inputan, maka continue
+        if (sortingType < 1 || sortingType > 2) {
+            printf("Pilih antara 1 atau 2! \n\n");
+            salahInput=true;
             continue;
         }
         salahInput = false;
