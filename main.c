@@ -172,6 +172,7 @@ void displayMahasiswa() {
 void urutBy(char atribut[]) {
     int order;
     bool salahInput=false;
+    // Inputkan Order (asc/desc)
     do
     {
         printf("1. Ascending\n");
@@ -187,6 +188,7 @@ void urutBy(char atribut[]) {
         salahInput = false;
     } while (salahInput);
 
+    // Inputkan metode sort (bubble, selection, dst.)
     int sortingType;
     do
     {
@@ -203,14 +205,26 @@ void urutBy(char atribut[]) {
         salahInput = false;
     } while (salahInput);
 
+    switch(sortingType) {
+        case 1:
+            bubbleSort(atribut, order);
+            break;
+
+        case 2:
+            selectionSort(atribut, order);
+            break;
+    }
+}
+
+bubbleSort(char atribut[], int order) {
+    /**
+    * 1 = Ascending
+    * 2 = Descending
+    */
     int i,j;
     for (i=0; i<curSize; i++) {
         for (j = 0; j < curSize-i-1; j++) {
             bool kondisi;
-            /**
-            * 1 = Ascending
-            * 2 = Descending
-            */
             if (strcmp(atribut, "nama") == 0) {
                 kondisi = order == 1
                             ? strcmp(listMhs[j].nama, listMhs[j+1].nama) > 0
@@ -228,5 +242,37 @@ void urutBy(char atribut[]) {
                 listMhs[j+1] = temp;
             }
         }
+    }
+}
+
+selectionSort(char atribut[], int order) {
+    /**
+    * 1 = Ascending
+    * 2 = Descending
+    */
+    int i,j;
+    for (int i = 0; i < curSize-1; i++) {
+        int selected_index = i;
+        for (int j = i+1; j < curSize; j++) {
+            bool kondisi;
+            if (strcmp(atribut, "nama") == 0) {
+                kondisi = order == 1
+                            ? strcmp(listMhs[j].nama, listMhs[selected_index].nama) < 0
+                            : strcmp(listMhs[j].nama, listMhs[selected_index].nama) > 0;
+            } else {
+                kondisi = order == 1
+                            ? strcmp(listMhs[j].npm, listMhs[selected_index].npm) < 0
+                            : strcmp(listMhs[j].npm, listMhs[selected_index].npm) > 0;
+            }
+
+            if (kondisi) {
+                // Catat indeks
+                selected_index = j;
+            }
+        }
+        // Tukar nilai
+        Mahasiswa temp = listMhs[i];
+        listMhs[i] = listMhs[selected_index];
+        listMhs[selected_index] = temp;
     }
 }
