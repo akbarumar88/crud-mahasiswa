@@ -40,8 +40,8 @@ int main()
         printf("2. Ubah Data \n");
         printf("3. Hapus Data \n");
         printf("4. Keluar \n");
-        printf("5. Urut berdasarkan nama Ascending \n");
-        printf("6. Urut berdasarkan nama Descending \n");
+        printf("5. Urut berdasarkan nama \n");
+        printf("6. Urut berdasarkan NPM \n");
         printf("Pilihan Anda: "); scanf("%i", &choice);
         printf("\n");
 
@@ -66,12 +66,12 @@ int main()
                 break;
 
             case 5:
-                urutByNama(1);
+                urutBy("nama");
                 displayMahasiswa();
                 break;
 
             case 6:
-                urutByNama(2);
+                urutBy("npm");
                 displayMahasiswa();
                 break;
 
@@ -102,8 +102,8 @@ void ubahData() {
         return;
     }
     int urutan, urutanIndex;
-    bool salah=true;
-    while (salah) {
+    bool salahInput=true;
+    while (salahInput) {
         printf("Urutan yang akan diubah : "); scanf("%i", &urutan);
         if (urutan < 1) {
             printf("Urutan tidak boleh lebih kecil dari 1\n");
@@ -112,7 +112,7 @@ void ubahData() {
             printf("Urutan tidak boleh lebih besar dari %i\n", curSize);
             continue;
         }
-        salah=false;
+        salahInput=false;
     }
 
     urutanIndex = urutan-1;
@@ -135,8 +135,8 @@ void hapusData() {
         return;
     }
     int urutan, urutanIndex;
-    bool salah=true;
-    while (salah) {
+    bool salahInput=true;
+    while (salahInput) {
         printf("Urutan yang akan dihapus : "); scanf("%i", &urutan);
         if (urutan < 1) {
             printf("Urutan tidak boleh lebih kecil dari 1\n");
@@ -145,7 +145,7 @@ void hapusData() {
             printf("Urutan tidak boleh lebih besar dari %i\n", curSize);
             continue;
         }
-        salah=false;
+        salahInput=false;
     }
     urutanIndex = urutan-1;
     int i;
@@ -168,24 +168,46 @@ void displayMahasiswa() {
     }
 }
 
-void urutByNama(int order) {
-    /**
-    * 1 = Ascending
-    * 2 = Descending
-    */
+void urutBy(char atribut[]) {
+    int order;
+    bool salahInput;
+    do
+    {
+        printf("1. Ascending\n");
+        printf("2. Descending\n");
+        printf("Pilih tipe order : "); scanf("%i", &order);
+        printf("\n");
+        // Jika salah inputan, maka continue
+        if (order < 1 || order > 2) {
+            printf("Pilih antara 1 atau 2 \n\n");
+            continue;
+        }
+        salahInput = false;
+    } while (salahInput);
 
     int i,j;
     for (i=0; i<curSize; i++) {
         for (j = 0; j < curSize-i-1; j++) {
-            bool kondisi = order == 1
+            bool kondisi;
+            /**
+            * 1 = Ascending
+            * 2 = Descending
+            */
+            if (strcmp(atribut, "nama") == 0) {
+                kondisi = order == 1
                             ? strcmp(listMhs[j].nama, listMhs[j+1].nama) > 0
                             : strcmp(listMhs[j].nama, listMhs[j+1].nama) < 0;
+            } else {
+                kondisi = order == 1
+                            ? strcmp(listMhs[j].npm, listMhs[j+1].npm) > 0
+                            : strcmp(listMhs[j].npm, listMhs[j+1].npm) < 0;
+            }
+
             if (kondisi) {
                 // Tukar nilai
-                char temp[32];
-                strcpy(temp, listMhs[j].nama);
-                strcpy(listMhs[j].nama, listMhs[j+1].nama);
-                strcpy(listMhs[j+1].nama, temp);
+                Mahasiswa temp = listMhs[j];
+                listMhs[j] = listMhs[j+1];
+                listMhs[j+1] = temp;
             }
         }
     }
