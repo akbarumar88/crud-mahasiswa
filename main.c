@@ -291,13 +291,14 @@ void searchBy(char atribut[]) {
     // Inputkan searching method (sequential/binary)
     do
     {
-        printf("1. Sequential\n");
-        printf("2. Binary\n");
+        printf("1. Sequential Search\n");
+        printf("2. Binary Search\n");
+        printf("3. Interpolation Search\n");
         printf("Pilih metode searching : "); scanf("%i", &search_method);
         printf("\n");
         // Jika salah inputan, maka continue
-        if (search_method < 1 || search_method > 2) {
-            printf("Pilih antara 1 atau 2! \n\n");
+        if (search_method < 1 || search_method > 3) {
+            printf("Pilih antara 1 sampai 3! \n\n");
             salahInput=true;
             continue;
         }
@@ -313,6 +314,10 @@ void searchBy(char atribut[]) {
 
         case 2:
             binarySearch(keyword);
+            break;
+
+        case 3:
+            interpolationSearch(keyword);
             break;
     }
 }
@@ -344,6 +349,40 @@ void sequentialSearch(char keyword[30]) {
 }
 
 void binarySearch(char keyword[30]) {
+    // Urutkan data terlebih dahulu, by NPM ascending
+    selectionSort("npm", 1);
+
+    // Inisialisasi awal
+    bool found=false;
+    int l=0, r=curSize-1, m;
+
+    while (l <= r && !found) {
+        m = (l+r)/2;
+        // Jika data ditemukan
+        if (strcmp(keyword, listMhs[m].npm) == 0) {
+            found=true;
+        } else if (strcmp(keyword, listMhs[m].npm) < 0) {
+            r = m-1;
+        } else {
+            l = m+1;
+        }
+    }
+
+    if (!found) {
+        printf("Maaf, data yang anda cari tidak ditemukan \n\n");
+    } else {
+        Mahasiswa current_mhs = listMhs[m];
+        printf("Data yang anda cari berhasil ditemukan \n");
+        printf("Nama        : %s \n", current_mhs.nama);
+        printf("NPM         : %s \n", current_mhs.npm);
+        printf("Fakultas    : %s \n", current_mhs.fakultas);
+        printf("Jurusan     : %s \n", current_mhs.jurusan);
+        printf("Semester    : %i \n", current_mhs.semester);
+        printf("Alamat      : %s, %s \n\n", current_mhs.alamat.kecamatan, current_mhs.alamat.kota);
+    }
+}
+
+void interpolationSearch(char keyword[30]) {
     // Urutkan data terlebih dahulu, by NPM ascending
     selectionSort("npm", 1);
 
